@@ -1,27 +1,27 @@
 let dolar=[
     {
-        "boliviano": 12.5 
+        "boliviano": "12.5 BS"
     },
     {
-        "euro": 0.92
+        "euro": "0.92 EUR"
     },
 
     
 ]
 let boliviano=[
     {
-        "dolar": 0.14 
+        "dolar": "0.14 USD" 
     },
     {
-        "euro": 0.13 
+        "euro": "0.13 EUR" 
     },   
 ]
 let euro=[
     {
-        "dolar": 1.09 
+        "dolar": "1.09 USD" 
     },
     {
-        "boliviano": 7.62
+        "boliviano": "7.62 BS"  
     },   
 ]
 
@@ -32,6 +32,12 @@ let coins=["Boliviano","Euro", "Dolar"];
 let baseCoin=document.getElementById('base_coin');
 let destinyCoin=document.querySelector('.destiny_coin');
 let btnConverter=document.querySelector('.btn_converter');
+let converTionResultContainer=document.querySelector('.result_container');
+const displayResult=(res)=>{
+    let element=`<p class=result>${res}</p>`;
+    return element;
+}
+
 
 //event to select coins
 baseCoin.addEventListener("change",()=>{
@@ -42,6 +48,10 @@ baseCoin.addEventListener("change",()=>{
 //event to make coin convertion
 
 btnConverter.addEventListener("click", ()=>{
+    processCoinConvertion();
+    let res=convert();
+    let newElement=displayResult(Object.values(res));
+    converTionResultContainer.innerHTML=newElement;
     
 })
 
@@ -108,16 +118,42 @@ const displayDestinyCoin=(coin)=>{
 const convert=()=>{
     let resConversion=0;
     if(baseCoin.value==='Boliviano' && destinyCoin.value==='Dolar'){
-        return resConversion=boliviano[0]
+        return resConversion=boliviano[0];
     }
+    if(baseCoin.value==='Boliviano' && destinyCoin.value==='Euro'){
+        return resConversion=boliviano[1]
+    }
+    if(baseCoin.value==='Dolar' && destinyCoin.value==='Boliviano'){
+        return resConversion=dolar[0]
+    }
+    if(baseCoin.value==='Dolar' && destinyCoin.value==='Euro'){
+        return resConversion=dolar[1]
+    }
+    if(baseCoin.value==='Euro' && destinyCoin.value==='Boliviano'){
+        return resConversion=euro[1];
+    }
+    if(baseCoin.value==='Euro' && destinyCoin.value==='Dolar'){
+        return resConversion=euro[0];
+    }
+    
+
+
     return resConversion;
 }
 
 const processCoinConvertion=async()=>{
     try {
-        
+        let res;
+        let convertion=await convert();
+        if(convertion!=0){
+            res=convertion
+            return console.log("Conversion hecha con exito!");
+        }else{
+            console.log("Hubo un error en la conversion intente de nuevo");
+        }
+        return res;
     } catch (error) {
-        
+        console.error(error);
     }
 }
 
