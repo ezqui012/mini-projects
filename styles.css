@@ -1,7 +1,7 @@
 body{
     margin: 0;
     box-sizing: border-box;
-   
+    background-color: #3D0F2b;
 }
 .main_container{
 
@@ -37,6 +37,17 @@ h4{
 .destiny_coin{
     border-radius: 0px 0px 0.1px 0.1px;
 }
+.input_converter{
+    display: flex;
+    flex-direction: column;
+}
+.input_data_converter{
+    padding: 12px;
+    margin: 5px 0px 5px 0px;
+    border-radius: 7px;
+    border: none;
+}
+
 .btn_converter{
     padding: 15px;
     margin-top: 43px;
